@@ -1,0 +1,23 @@
+<div class="dashboard-nav" style="background-color: lightgray;">
+
+  <a href="">YOUR PROFILE</a>
+
+</div>
+
+
+<div class="food-list">
+  <h2>Food List</h2>
+
+  {{#each allFoodDB}}
+  <h3>{{title}}</h3>
+  {{/each}}
+
+  <a href="/add">Add an item to the list</a>
+
+</div>
+
+<hr>
+
+<div class="food-map">
+  {{!-- Here goes the map --}}
+</div>
