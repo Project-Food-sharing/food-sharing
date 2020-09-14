@@ -33,6 +33,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//session configuration
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: {maxAge:60*60*1000},
+    saveUninitialized: false,
+    resave:true,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60* 60 * 1000
+    })
+  })
+)
+
 // Express View engine setup
 
 app.use(
@@ -49,12 +66,18 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 // default value for title local
-app.locals.title = "FoodSharing";
+
+app.locals.title = 'Food-Sharing';
 
 const index = require("./routes/index");
 app.use("/", index);
 
+
 const food = require("./routes/food");
 app.use("/", food);
+
+const user = require('./routes/user/user.js');
+app.use('/', user); 
+
 
 module.exports = app;
