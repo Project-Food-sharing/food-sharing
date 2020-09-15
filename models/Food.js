@@ -16,6 +16,9 @@ const celebritySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  zipcode: String,
+  houseNumber: String,
+  street: String,
   latitud: String,
   longitud: String,
   date: {

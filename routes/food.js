@@ -4,12 +4,15 @@ const Food = require("../models/Food");
 const app = require("../app");
 const User = require("../models/User");
 const { loginCheck } = require("../routes/middlewares.js");
+const { findById } = require("../models/Food");
 // const { uploader, cloudinary } = require("../config/cloudinary.js");
 
 // RENDERING VIEWS
 
 router.get("/add", (req, res) => {
   let categories = ["Raw", "Prepared", "Drinks"];
+  console.log("add in food", req.session.user);
+  req.session.user.role = "creator";
   res.render("food/add", { categories });
 });
 
@@ -83,13 +86,31 @@ router.post("/dashboard", (req, res, next) => {
 // EDIT FOOD ENTRY
 
 router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
+  // console.log(req.session.user);
+
+  const { zipcode, houseNumber, street } = req.session.user;
   Food.findById(req.params.id)
-    .then((foodToEdit) => {
-      res.render("food/edit", { foodToEdit: foodToEdit });
+    .populate("creator")
+    .then((foodData) => {
+      console.log("food creator", typeof foodData.creator._id);
+      console.log("user id", typeof req.session.user._id);
+
+      Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
+        .then((foodToEdit) => {
+          // console.log(foodToEdit);
+          // console.log("user session id", req.session.user._id);
+          //console.log("user session creator", req.session.user);
+          if (req.session.user._id == foodData.creator._id) {
+            res.render("food/edit", { foodToEdit: foodToEdit });
+          } else {
+            console.log("another username");
+          }
+        })
+        .catch((error) => {
+          next(error);
+        });
     })
-    .catch((error) => {
-      next(error);
-    });
+    .catch((err) => console.log(err));
 });
 
 // /gone/{{_id}}
