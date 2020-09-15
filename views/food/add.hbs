@@ -1,6 +1,6 @@
 <h2>Add Food</h2>
 
-<form action="/dashboard" method="POST">
+<form action="/food/{{_id}}/edit" method="POST">
 
   <p><label for="title">Title:</label>
     <input type="text" name="title" id="title"></p>
@@ -9,7 +9,7 @@
     <input type="text" name="address" id="address"></p>
 
   <p><label for="description">Description:</label>
-    <input type="text" name="description" id="description"></p>
+    <textarea name="description" id="description"></textarea></p>
 
   {{#each categories}}
   <p>

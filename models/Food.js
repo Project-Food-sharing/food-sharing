@@ -12,19 +12,19 @@ const celebritySchema = new Schema({
     enum: ["Available", "Blocked", "Gone"],
     default: "Available",
   },
-  // creator: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  // },
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   latitud: String,
   longitud: String,
   date: {
     type: Date,
     default: Date.now,
   },
-  // imgName: String,
-  // imgPath: String,
-  // imgPublicId: String,
+  imgName: String,
+  imgPath: String,
+  imgPublicId: String,
 });
 
 const Food = mongoose.model("Food", celebritySchema);
