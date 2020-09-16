@@ -10,7 +10,7 @@ cloudinary.config({
 
 const storage = cloudinaryStorage({
   cloudinary,
-  folder: "food-sharing",
+  folder: "food-sharing-app",
   allowedFormats: ["jpg", "png"],
   filename: function (req, res, cb) {
     cb(null, res.originalname);

@@ -10,27 +10,21 @@
   <label for="zipcode">Zipcode</label>
   <input type="text" name="zipcode" id="zipcode" value={{zipcode}}>
 
-  <label for="houseNumber">HouseNumber</label>
-  <input type="text" name="houseNumber" id="houseNumber" value={{houseNumber}}>
-
   <label for="street">Street</label>
   <input type="text" name="street" id="street" value={{street}}>
+
+  <label for="houseNumber">House number</label>
+  <input type="text" name="houseNumber" id="houseNumber" value={{houseNumber}}>
 
   <p><label for="description">Description:</label>
     <textarea name="description" id="description">{{description}}</textarea></p>
 
-  {{#each categories}}
-  <p>
-    <input type="checkbox" name="categories" id="categories" value={{this}}>
-    <label for="categories">{{this}}</label></p>
-  {{/each}}
+  {{/with}}
 
-  {{!-- <p><label for="categories">Upload photo:</label>
-    <input type="file" name="photo" id="photo"></p> --}}
+  {{{options}}}
+
+  <p>Double : {{options.value}}</p>
 
   <hr>
-  <p><button type="submit">Update your entry</button></p>
-
+  <button type="submit">Update your entry</button>
 </form>
-
-{{/with}}

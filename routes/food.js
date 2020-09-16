@@ -19,7 +19,7 @@ router.get("/add", (req, res) => {
 
 router.get("/dashboard", (req, res, next) => {
   Food.find()
-  .populate("creator")
+    .populate("creator")
     .then((allFoodDB) => {
       const filteredFood = allFoodDB.map(function(data){
         if(data.status === "Available" || data.status === "Blocked") return data
@@ -28,14 +28,16 @@ router.get("/dashboard", (req, res, next) => {
       res.render("dashboard", { allFoodDB: filteredFood });
     })
     .catch((error) => {
-      next(error); });
+      next(error);
+    });
 });
 
 // DETAIL VIEW
 
-router.get("/details/:id", loginCheck(),(req, res, next) => {
-  console.log("req",req.session.user)
+router.get("/details/:id", loginCheck(), (req, res, next) => {
+  console.log("req", req.session.user);
   const id = req.params.id;
+
   Food.findById(req.params.id)
   .then(foodFromDB=>{
 
@@ -54,7 +56,7 @@ router.get("/details/:id", loginCheck(),(req, res, next) => {
 
 // ADD NEW
 
-router.post("/dashboard", (req, res, next) => {
+router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
   // Add creator to the constructor after merging with Khushboo
   const {
     title,
@@ -66,9 +68,12 @@ router.post("/dashboard", (req, res, next) => {
     date,
   } = req.body;
 
-  // const imgName = req.file.originalname;
-  // const imgPath = req.file.url;
-  // const imgPublicId = req.file.public_id;
+
+  console.log("this is req.file", req.file);
+  const imgName = req.file.originalname;
+  const imgPath = req.file.url;
+  const imgPublicId = req.file.public_id;
+
 
   Food.create({
     title,
@@ -78,9 +83,9 @@ router.post("/dashboard", (req, res, next) => {
     creator: req.session.user._id,
     latitud,
     longitud,
-    // imgName,
-    // imgPath,
-    // imgPublicId,
+    imgName,
+    imgPath,
+    imgPublicId,
     date,
   })
     .then((newFood) => {
@@ -91,25 +96,45 @@ router.post("/dashboard", (req, res, next) => {
         res.redirect(`/details/${newFood.id}`);
       });
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      next(err);
     });
 });
 
 // EDIT FOOD ENTRY
 
-// render edit form with prefilled informations
 router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
-  console.log("this is req.params.id", req.params.id);
+
   Food.findById(req.params.id)
     .then((foodData) => {
-      console.log("this is foodData", foodData);
-      //option logic
-      res.render("food/edit", { foodData });
+      // console.log("this is foodData", foodData);
+
+      Food.findById(req.params.id)
+        .then((food) => {
+          let options = "";
+          let allCategories = ["Raw", "Prepared", "Drinks"];
+
+          allCategories.forEach((categorie) => {
+            if (food.categories.includes(categorie)) {
+              options += `<input type="checkbox" name="categories" id="categories" checked value="${categorie}"><label for="categories">${categorie}</label>`;
+            } else {
+              options += `<input type="checkbox" name="categories" id="categories"><label for="categories">${categorie}</label>`;
+            }
+          });
+          console.log("this is options", options);
+          res.render("food/edit", { foodData, options });
+        })
+        .catch((err) => console.log(err));
     })
     .catch((err) => console.log(err));
 });
 
+router.post("/food/:id/edit", (req, res, next) => {
+  const id = req.params.id;
+  res.redirect(`/details/${id}`);
+});
+
+// /gone/{{_id}}
 
 router.post("/status/:foodId", (req, res, next) => {
   let status = req.body.status;
