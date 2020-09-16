@@ -72,9 +72,18 @@ router.get('/profile', (req, res, next) => {
   User.findById(req.session.user._id)
   .populate("food")
   .then(user => {
-    console.log("user profile",user)
-    console.log("profile page", req.session.user._id)
-    res.render('user/profile', {user: user})
+  console.log("number",user.food.length)
+  for(let i = 0; i<user.food.length;i++){
+    if(user.food[i].status === "Available" )
+    user.food[i].statusAnother = "Blocked";  
+    else if(user.food[i].status === "Blocked")
+    user.food[i].statusAnother = "Gone"
+
+  
+}
+// console.log(user.food[0])
+   res.render('user/profile', {user: user})
+    
   })
 })
  
@@ -100,5 +109,15 @@ router.post('/profile/:id/edit', (req, res, next) => {
     next(error)
   })
 })
+
+router.get("/logout", (req, res) => {
+  req.session.destroy((error) => {
+    if (error) {
+      next(error);
+    } else {
+      res.redirect("/");
+    }
+  });
+});
 
 module.exports = router
