@@ -1,6 +1,7 @@
 <div class="dashboard-nav" style="background-color: lightgray;">
 
-  <a href="">YOUR PROFILE</a>
+  <p><a href="/profile">YOUR PROFILE</a></p>
+  <p><a href="/logout">LOG OUT</a></p>
 
 </div>
 
@@ -9,7 +10,9 @@
   <h2>Food List</h2>
 
   {{#each allFoodDB}}
-  <h3>{{title}}</h3>
+  <a href="/details/{{_id}}">
+    <h3>{{title}}</h3>
+  </a>
   {{/each}}
 
   <a href="/add">Add an item to the list</a>

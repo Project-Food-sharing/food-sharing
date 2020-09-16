@@ -1,12 +1,72 @@
 <h1>Profile</h1>
 {{#with user}}
+<<<<<<< HEAD
 Name:{{username}} </br>
 Address: 
+=======
+Name:{{username}}</br>
+Address:
+>>>>>>> a10af4947fee91c2a837c5d68c6504fbcfd5078c
 House Number: {{houseNumber}}</br>
 Street: {{street}}</br>
 ZipCode: {{zipcode}}</br>
 {{!-- ID:{{_id}} --}}
+<<<<<<< HEAD
 
 <a href="/profile/{{this._id}}/edit">Update Profile</a>
 
 {{/with}}
+=======
+<a href="/profile/{{this._id}}/edit">Update Profile</a>
+
+<h3>Shared food history</h3>
+
+{{#each food}}
+<div>
+  <p>{{title}}</p>
+  <p>{{description}}</p>
+  <span>{{status}}</span>
+  <button type="submit" class="gone-button" value={{_id}}>Gone</button>
+  <button type="submit" class="blocked-button" value={{_id}}>Blocked</button>
+</div>
+{{/each}}
+
+<hr>
+
+<a href="/add">Share again!</a>
+
+{{/with}}
+
+<script>
+
+  let goneButtons = document.querySelectorAll(".gone-button")
+  let blockedButtons = document.querySelectorAll(".blocked-button")
+
+  goneButtons.forEach(statusButton => {
+    statusButton.onclick = (e) => {
+      console.log(e.target.value)
+      axios.post(`/gone/${e.target.value}`).then(response => {
+        console.log(statusButton.parentNode.querySelector("span").innerText)
+        statusButton.parentNode.querySelector("span").innerText = response.data;
+        //statusButton.innerHTML = "WORKS";
+      }).catch(err => {
+        console.log(err);
+      })
+    }
+  })
+
+  blockedButtons.forEach(statusButton => {
+    statusButton.onclick = (e) => {
+      console.log(e.target.value)
+      axios.post(`/blocked/${e.target.value}`).then(response => {
+        console.log(statusButton.parentNode.querySelector("span").innerText)
+        statusButton.parentNode.querySelector("span").innerText = response.data;
+        //statusButton.innerHTML = "WORKS";
+      }).catch(err => {
+        console.log(err);
+      })
+    }
+  })
+
+</script>
+>>>>>>> a10af4947fee91c2a837c5d68c6504fbcfd5078c
