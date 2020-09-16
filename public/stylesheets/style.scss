@@ -1,8 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;600&display=swap");
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 2%;
+  font-family: "Rubik", sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.food-list {
+  position: relative;
+  overflow-y: auto;
+  height: 80vh;
+}
+
+.left-column {
+  width: 25%;
+}
+
+.food-map {
+  width: 75%;
+}
+
+// .food-item {
+
+// }

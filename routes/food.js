@@ -5,7 +5,7 @@ const app = require("../app");
 const User = require("../models/User");
 const { loginCheck } = require("../routes/middlewares.js");
 const { findById } = require("../models/Food");
-// const { uploader, cloudinary } = require("../config/cloudinary.js");
+const { uploader, cloudinary } = require("../config/cloudinary.js");
 
 // RENDERING VIEWS
 
@@ -20,6 +20,7 @@ router.get("/add", (req, res) => {
 
 router.get("/dashboard", (req, res, next) => {
   Food.find()
+    .populate("creator")
     .then((allFoodDB) => {
       console.log(allFoodDB);
       res.render("dashboard", { allFoodDB: allFoodDB });
@@ -53,9 +54,9 @@ router.post("/dashboard", (req, res, next) => {
     date,
   } = req.body;
 
-  // const imgName = req.file.originalname;
-  // const imgPath = req.file.url;
-  // const imgPublicId = req.file.public_id;
+  const imgName = req.file.originalname;
+  const imgPath = req.file.url;
+  const imgPublicId = req.file.public_id;
 
   Food.create({
     title,
@@ -65,9 +66,9 @@ router.post("/dashboard", (req, res, next) => {
     creator: req.session.user._id,
     latitud,
     longitud,
-    // imgName,
-    // imgPath,
-    // imgPublicId,
+    imgName,
+    imgPath,
+    imgPublicId,
     date,
   })
     .then((newFood) => {
@@ -105,12 +106,7 @@ router.post("/food/:id/edit", loginCheck(), (req, res, next) => {
 
   Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
     .then((foodToEdit) => {
-      console.log("food creator", foodToEdit.creator._id.toString());
-      console.log("user id", req.session.user._id);
-      // console.log(foodToEdit);
-      // console.log("user session id", req.session.user._id);
-      //console.log("user session creator", req.session.user);
-      if (req.session.user._id == foodToEdit.creator._id) {
+      if (req.session.user._id === foodToEdit.creator._id.toString()) {
         res.redirect(`/details/${foodToEdit._id}`);
       } else {
         console.log("another username");
