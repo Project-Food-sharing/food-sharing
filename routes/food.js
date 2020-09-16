@@ -11,7 +11,7 @@ const { uploader, cloudinary } = require("../config/cloudinary.js");
 
 router.get("/add", (req, res) => {
   let categories = ["Raw", "Prepared", "Drinks"];
-  console.log("add in food", req.session.user);
+ // console.log("add in food", req.session.user);
   res.render("food/add", { categories, user:req.session.user });
 });
 
@@ -24,7 +24,7 @@ router.get("/dashboard", (req, res, next) => {
       const filteredFood = allFoodDB.map(function(data){
         if(data.status === "Available" || data.status === "Blocked") return data
       })
-      console.log("dashboard",filteredFood);
+     // console.log("dashboard",filteredFood);
       res.render("dashboard", { allFoodDB: filteredFood });
     })
     .catch((error) => {
@@ -40,7 +40,7 @@ router.get("/details/:id", loginCheck(),(req, res, next) => {
   .then(foodFromDB=>{
 
     if (req.session.user._id == foodFromDB.creator._id.toString()) {
-      console.log("this is true")
+    //  console.log("this is true")
       foodFromDB.creator.role = true
    }
     //option logic
@@ -66,9 +66,9 @@ router.post("/dashboard", (req, res, next) => {
     date,
   } = req.body;
 
-  const imgName = req.file.originalname;
-  const imgPath = req.file.url;
-  const imgPublicId = req.file.public_id;
+  // const imgName = req.file.originalname;
+  // const imgPath = req.file.url;
+  // const imgPublicId = req.file.public_id;
 
   Food.create({
     title,
@@ -78,9 +78,9 @@ router.post("/dashboard", (req, res, next) => {
     creator: req.session.user._id,
     latitud,
     longitud,
-    imgName,
-    imgPath,
-    imgPublicId,
+    // imgName,
+    // imgPath,
+    // imgPublicId,
     date,
   })
     .then((newFood) => {
@@ -100,10 +100,8 @@ router.post("/dashboard", (req, res, next) => {
 
 // render edit form with prefilled informations
 router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
-  // console.log(req.session.user);
   console.log("this is req.params.id", req.params.id);
   Food.findById(req.params.id)
-    .populate("creator")
     .then((foodData) => {
       console.log("this is foodData", foodData);
       //option logic
@@ -113,26 +111,24 @@ router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
 });
 
 
-router.post("/gone/:foodId", (req, res, next) => {
+router.post("/status/:foodId", (req, res, next) => {
+  let status = req.body.status;
+  let newStatus = ""
+  if(status == "Available") {
+    newStatus = "Blocked"
+  } else if(status == "Blocked") {
+    newStatus = "Gone"
+  } else {
+    newStatus = "Available"
+  }
   Food.findByIdAndUpdate(
     req.params.foodId,
-    { status: "Gone" },
+    { status: newStatus },
     { new: true }
   ).then((editedFood) => {
     res.send(editedFood.status);
   });
 });
 
-// /blocked/{{_id}}
-
-router.post("/blocked/:foodId", (req, res, next) => {
-  Food.findByIdAndUpdate(
-    req.params.foodId,
-    { status: "Blocked" },
-    { new: true }
-  ).then((editedFood) => {
-    res.send(editedFood.status);
-  });
-});
 
 module.exports = router;
