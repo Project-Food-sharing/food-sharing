@@ -1,14 +1,16 @@
 const express = require('express');
 const router  = express.Router();
-const User = require('../../models/User');
+const User = require('../models/User');
 const bcrypt = require('bcrypt')
+const Food = require('../models/Food')
 
 router.get('/signup', (req, res, next) => {
-  res.render('signup');
+  res.render('user/signup');
 });
 
-router.get('/login',(req,res,next) =>{
-  res.render('login')
+router.get('/login',(req, res, next) =>{
+  console.log("in login")
+  res.render('user/login')
 })
 
 router.post('/signup',(req, res, next) => {
@@ -16,17 +18,17 @@ router.post('/signup',(req, res, next) => {
   console.log
   if(password.length<8){
     //using render instead of redirect because we are passing an messag with it
-    res.render('signup',{message:'Your password needs to be 8 chars min'})
+    res.render('user/signup',{message:'Your password needs to be 8 chars min'})
     return;
   }
   if(username === ''){
-    res.render('signup',{message:'Your username cannot be empty'})
+    res.render('user/signup',{message:'Your username cannot be empty'})
     return;
   }
   User.findOne({ username: username})
   .then(found => {
     if(found !== null){
-      res.render('signup',{message:'This username is already taken'})
+      res.render('user/signup',{message:'This username is already taken'})
     }else{
      //hash the password, create the user and redirect to profile page
     const salt = bcrypt.genSaltSync();
@@ -49,14 +51,14 @@ router.post('/login',(req, res, next) => {
   User.findOne({username: username})
   .then(found => {
     if (found === null){
-      res.render('login',{message:'Invalid credentails'})
+      res.render('user/login',{message:'Invalid credentails'})
       return;
     }
     if(bcrypt.compareSync(password, found.password)){
     req.session.user = found;
     res.redirect('/profile')
     } else {
-      res.render('login',{message:'Invalid credentails'})
+      res.render('user/login',{message:'Invalid credentails'})
     }
   })
   .catch(error => {
@@ -67,15 +69,19 @@ router.post('/login',(req, res, next) => {
 
 //update this once the dashboard page is ready with id
 router.get('/profile', (req, res, next) => {
-
- console.log("profile page", req.session.user)
- res.render('profile', {user: req.session.user})
+  User.findById(req.session.user._id)
+  .populate("food")
+  .then(user => {
+    console.log("profile page", req.session.user._id)
+    res.render('user/profile', {user: req.session.user})
+  })
 })
+ 
 
 router.get('/profile/:id/edit', (req, res, next) => {
   console.log("params",req.params)
   const id = req.params.id
-  res.render('edit', { id : id})
+  res.render('user/edit', { id : id})
 })
 
 router.post('/profile/:id/edit', (req, res, next) => {
@@ -87,16 +93,11 @@ router.post('/profile/:id/edit', (req, res, next) => {
     street
   })
   .then(found => {
-    console.log("here")
     res.redirect('/profile')
   })
   .catch(error => {
     next(error)
   })
 })
-
-
-
-
 
 module.exports = router

@@ -6,12 +6,15 @@ const userSchema = new Schema({
   zipcode: String,
   houseNumber: String,
   street: String,
-  food:{
+  food:[{
     type: Schema.Types.ObjectId,
     ref: 'Food'
-  },
+  }],
   latitude:String,
   longitude:String
 });
 const User = mongoose.model('User', userSchema);
 module.exports = User;
+
+
+

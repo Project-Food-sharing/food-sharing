@@ -1,0 +1,12 @@
+<h1>Profile</h1>
+{{#with user}}
+Name:{{username}} </br>
+Address: 
+House Number: {{houseNumber}}</br>
+Street: {{street}}</br>
+ZipCode: {{zipcode}}</br>
+{{!-- ID:{{_id}} --}}
+
+<a href="/profile/{{this._id}}/edit">Update Profile</a>
+
+{{/with}}

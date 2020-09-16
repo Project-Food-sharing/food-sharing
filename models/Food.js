@@ -12,10 +12,10 @@ const celebritySchema = new Schema({
     enum: ["Available", "Blocked", "Gone"],
     default: "Available",
   },
-  // creator: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User",
-  // },
+   creator: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   latitud: String,
   longitud: String,
   date: {

@@ -10,7 +10,7 @@ const logger = require("morgan");
 const path = require("path");
 
 mongoose
-  .connect("mongodb://localhost/food-sharing", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI ||"mongodb://localhost/food-sharing", { useNewUrlParser: true })
   .then((x) => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
@@ -76,7 +76,7 @@ app.use("/", index);
 const food = require("./routes/food");
 app.use("/", food);
 
-const user = require('./routes/user/user.js');
+const user = require('./routes/user');
 app.use('/', user); 
 
 
