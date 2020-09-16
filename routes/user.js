@@ -56,7 +56,7 @@ router.post('/login',(req, res, next) => {
     }
     if(bcrypt.compareSync(password, found.password)){
     req.session.user = found;
-    res.redirect('/profile')
+    res.redirect('/dashboard')
     } else {
       res.render('user/login',{message:'Invalid credentails'})
     }
@@ -72,8 +72,9 @@ router.get('/profile', (req, res, next) => {
   User.findById(req.session.user._id)
   .populate("food")
   .then(user => {
+    console.log("user profile",user)
     console.log("profile page", req.session.user._id)
-    res.render('user/profile', {user: req.session.user})
+    res.render('user/profile', {user: user})
   })
 })
  

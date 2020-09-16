@@ -6,7 +6,7 @@
 {{!-- Add the buttons to request food --}}
 <a href="/dashboard">See the whole list</a>
 
-(#if creator.role === 'creator')
+{{#if creator.role }}
 <a href="/food/{{_id}}/edit">Edit</a>
-(/if)
+{{/if}}
 {{/with}}
