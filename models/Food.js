@@ -12,6 +12,10 @@ const celebritySchema = new Schema({
     enum: ["Available", "Blocked", "Gone"],
     default: "Available",
   },
+  statusAnother: {
+    type: String,
+   // default: "Blocked",
+  },
   creator: {
     type: Schema.Types.ObjectId,
     ref: "User",

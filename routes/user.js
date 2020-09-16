@@ -73,13 +73,22 @@ router.post("/login", (req, res, next) => {
 //update this once the dashboard page is ready with id
 router.get("/profile", (req, res, next) => {
   User.findById(req.session.user._id)
-    .populate("food")
-    .then((user) => {
-      console.log("user profile", user);
-      console.log("profile page", req.session.user._id);
-      res.render("user/profile", { user: user });
-    });
-});
+  .populate("food")
+  .then(user => {
+  console.log("number",user.food.length)
+  for(let i = 0; i<user.food.length;i++){
+    if(user.food[i].status === "Available" )
+    user.food[i].statusAnother = "Blocked";  
+    else if(user.food[i].status === "Blocked")
+    user.food[i].statusAnother = "Gone"
+
+  
+}
+// console.log(user.food[0])
+   res.render('user/profile', {user: user})
+    
+  })
+})
 
 router.get("/profile/:id/edit", (req, res, next) => {
   console.log("params", req.params);
@@ -113,4 +122,4 @@ router.get("/logout", (req, res) => {
   });
 });
 
-module.exports = router;
+module.exports = router
