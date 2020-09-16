@@ -1,6 +1,6 @@
 <h2>Edit Food entry</h2>
 
-{{#with foodToEdit}}
+{{#with foodData}}
 
 <form action="/food/{{_id}}/edit" method="POST">
 
@@ -21,7 +21,7 @@
 
   {{#each categories}}
   <p>
-    <input type=" checkbox" name="categories" id="categories" value={{this}}>
+    <input type="checkbox" name="categories" id="categories" value={{this}}>
     <label for="categories">{{this}}</label></p>
   {{/each}}
 

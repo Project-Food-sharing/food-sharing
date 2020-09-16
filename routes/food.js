@@ -85,32 +85,40 @@ router.post("/dashboard", (req, res, next) => {
 
 // EDIT FOOD ENTRY
 
+// render edit form with prefilled informations
 router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
   // console.log(req.session.user);
-
-  const { zipcode, houseNumber, street } = req.session.user;
+  console.log("this is req.params.id", req.params.id);
   Food.findById(req.params.id)
     .populate("creator")
     .then((foodData) => {
-      console.log("food creator", typeof foodData.creator._id);
-      console.log("user id", typeof req.session.user._id);
-
-      Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
-        .then((foodToEdit) => {
-          // console.log(foodToEdit);
-          // console.log("user session id", req.session.user._id);
-          //console.log("user session creator", req.session.user);
-          if (req.session.user._id == foodData.creator._id) {
-            res.render("food/edit", { foodToEdit: foodToEdit });
-          } else {
-            console.log("another username");
-          }
-        })
-        .catch((error) => {
-          next(error);
-        });
+      console.log("this is foodData", foodData);
+      //option logic
+      res.render("food/edit", { foodData });
     })
     .catch((err) => console.log(err));
+});
+
+//Update the food when clicking on submit
+router.post("/food/:id/edit", loginCheck(), (req, res, next) => {
+  const { zipcode, houseNumber, street } = req.session.user;
+
+  Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
+    .then((foodToEdit) => {
+      console.log("food creator", foodToEdit.creator._id.toString());
+      console.log("user id", req.session.user._id);
+      // console.log(foodToEdit);
+      // console.log("user session id", req.session.user._id);
+      //console.log("user session creator", req.session.user);
+      if (req.session.user._id == foodToEdit.creator._id) {
+        res.redirect(`/details/${foodToEdit._id}`);
+      } else {
+        console.log("another username");
+      }
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 // /gone/{{_id}}
