@@ -15,9 +15,8 @@ const userSchema = new Schema({
   latitude: String,
   longitude: String,
   role: {
-    type: String,
-    enum: ["creator", "guest"],
-    default: "guest",
+    type: Boolean,
+    default:false
   },
 });
 const User = mongoose.model("User", userSchema);

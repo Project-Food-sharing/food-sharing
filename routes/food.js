@@ -12,33 +12,45 @@ const { uploader, cloudinary } = require("../config/cloudinary.js");
 router.get("/add", (req, res) => {
   let categories = ["Raw", "Prepared", "Drinks"];
   console.log("add in food", req.session.user);
-  req.session.user.role = "creator";
-  res.render("food/add", { categories });
+  res.render("food/add", { categories, user:req.session.user });
 });
 
 // LIST ALL FOOD ENTRIES
 
 router.get("/dashboard", (req, res, next) => {
   Food.find()
-    .populate("creator")
+  .populate("creator")
     .then((allFoodDB) => {
-      console.log(allFoodDB);
-      res.render("dashboard", { allFoodDB: allFoodDB });
+      const filteredFood = allFoodDB.map(function(data){
+        if(data.status === "Available" || data.status === "Blocked") return data
+      })
+      console.log("dashboard",filteredFood);
+      res.render("dashboard", { allFoodDB: filteredFood });
     })
     .catch((error) => {
-      next(error);
-    });
+      next(error); });
 });
 
 // DETAIL VIEW
 
-router.get("/details/:id", (req, res, next) => {
+router.get("/details/:id", loginCheck(),(req, res, next) => {
+  console.log("req",req.session.user)
   const id = req.params.id;
+  Food.findById(req.params.id)
+  .then(foodFromDB=>{
 
-  Food.findById(id).then((foodFromDB) => {
+    if (req.session.user._id == foodFromDB.creator._id.toString()) {
+      console.log("this is true")
+      foodFromDB.creator.role = true
+   }
+    //option logic
     res.render("food/details", { newFood: foodFromDB });
-  });
-});
+  })
+  .catch(err => {
+    next(err)
+  })
+})
+
 
 // ADD NEW
 
@@ -100,24 +112,6 @@ router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-//Update the food when clicking on submit
-router.post("/food/:id/edit", loginCheck(), (req, res, next) => {
-  const { zipcode, houseNumber, street } = req.session.user;
-
-  Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
-    .then((foodToEdit) => {
-      if (req.session.user._id === foodToEdit.creator._id.toString()) {
-        res.redirect(`/details/${foodToEdit._id}`);
-      } else {
-        console.log("another username");
-      }
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
-
-// /gone/{{_id}}
 
 router.post("/gone/:foodId", (req, res, next) => {
   Food.findByIdAndUpdate(
