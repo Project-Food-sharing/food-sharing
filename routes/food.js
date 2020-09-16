@@ -5,7 +5,7 @@ const app = require("../app");
 const User = require("../models/User");
 const { loginCheck } = require("../routes/middlewares.js");
 const { findById } = require("../models/Food");
-// const { uploader, cloudinary } = require("../config/cloudinary.js");
+const { uploader, cloudinary } = require("../config/cloudinary.js");
 
 // RENDERING VIEWS
 
@@ -66,9 +66,9 @@ router.post("/dashboard", (req, res, next) => {
     date,
   } = req.body;
 
-  // const imgName = req.file.originalname;
-  // const imgPath = req.file.url;
-  // const imgPublicId = req.file.public_id;
+  const imgName = req.file.originalname;
+  const imgPath = req.file.url;
+  const imgPublicId = req.file.public_id;
 
   Food.create({
     title,
@@ -78,9 +78,9 @@ router.post("/dashboard", (req, res, next) => {
     creator: req.session.user._id,
     latitud,
     longitud,
-    // imgName,
-    // imgPath,
-    // imgPublicId,
+    imgName,
+    imgPath,
+    imgPublicId,
     date,
   })
     .then((newFood) => {
@@ -111,7 +111,6 @@ router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
     })
     .catch((err) => console.log(err));
 });
-
 
 
 router.post("/gone/:foodId", (req, res, next) => {
