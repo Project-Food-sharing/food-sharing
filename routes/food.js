@@ -31,12 +31,49 @@ router.get("/dashboard", (req, res, next) => {
 
 // DETAIL VIEW
 
-router.get("/details/:id", (req, res, next) => {
+router.get("/details/:id", loginCheck(),(req, res, next) => {
+  const { zipcode, houseNumber, street } = req.session.user;
   const id = req.params.id;
+Food.findByIdAndUpdate(id, { zipcode, houseNumber, street })
+  .populate("creator")
+  .then((foodFromDB) => {
+    console.log("this is foodData", foodFromDB);
 
-  Food.findById(id).then((foodFromDB) => {
+
+    if (req.session.user._id == foodToEdit.creator._id.toString()) {
+      foodFromDB.creator.role = "creator"
+    }
+    //option logic
     res.render("food/details", { newFood: foodFromDB });
-  });
+  })
+
+
+
+
+//   const { zipcode, houseNumber, street } = req.session.user;
+
+//   Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
+//     .then((foodToEdit) => {
+//       console.log("food creator", foodToEdit.creator._id.toString());
+//       console.log("user id", req.session.user._id);
+//       // console.log(foodToEdit);
+//       // console.log("user session id", req.session.user._id);
+//       //console.log("user session creator", req.session.user);
+//       if (req.session.user._id == foodToEdit.creator._id) {
+//         res.redirect(`/details/${foodToEdit._id.toString()}`);
+//       } else {
+//         console.log("another username");
+//       }
+//     })
+
+
+
+
+
+
+  // Food.findById(id).then((foodFromDB) => {
+  //   res.render("food/details", { newFood: foodFromDB });
+  // });
 });
 
 // ADD NEW
@@ -100,26 +137,26 @@ router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
 });
 
 //Update the food when clicking on submit
-router.post("/food/:id/edit", loginCheck(), (req, res, next) => {
-  const { zipcode, houseNumber, street } = req.session.user;
+// router.post("/food/:id/edit", loginCheck(), (req, res, next) => {
+//   const { zipcode, houseNumber, street } = req.session.user;
 
-  Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
-    .then((foodToEdit) => {
-      console.log("food creator", foodToEdit.creator._id.toString());
-      console.log("user id", req.session.user._id);
-      // console.log(foodToEdit);
-      // console.log("user session id", req.session.user._id);
-      //console.log("user session creator", req.session.user);
-      if (req.session.user._id == foodToEdit.creator._id) {
-        res.redirect(`/details/${foodToEdit._id}`);
-      } else {
-        console.log("another username");
-      }
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
+//   Food.findByIdAndUpdate(req.params.id, { zipcode, houseNumber, street })
+//     .then((foodToEdit) => {
+//       console.log("food creator", foodToEdit.creator._id.toString());
+//       console.log("user id", req.session.user._id);
+//       // console.log(foodToEdit);
+//       // console.log("user session id", req.session.user._id);
+//       //console.log("user session creator", req.session.user);
+//       if (req.session.user._id == foodToEdit.creator._id) {
+//         res.redirect(`/details/${foodToEdit._id.toString()}`);
+//       } else {
+//         console.log("another username");
+//       }
+//     })
+//     .catch((error) => {
+//       next(error);
+//     });
+// });
 
 // /gone/{{_id}}
 

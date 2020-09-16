@@ -1,9 +1,12 @@
 <h2>Detailed food view</h2>
-
 {{#with newFood}}
-
 <h3>{{title}}</h3>
 <p>{{description}}</p>
+<p>{{status}}</p>
+{{!-- Add the buttons to request food --}}
+<a href="/dashboard">See the whole list</a>
 
-
+(#if creator.role === 'creator')
+<a href="/food/{{_id}}/edit">Edit</a>
+(/if)
 {{/with}}
