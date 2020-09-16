@@ -3,13 +3,19 @@
 <h3>{{title}}</h3>
 <p>{{description}}</p>
 <p>{{status}}</p>
+<p>{{date}}</p>
 
-<img src="{{imgPath}}" alt="{{title}}">
+<p>IMG PATH : {{imgPath}}</p>
 
-{{!-- Add the buttons to request food --}}
-<a href="/dashboard">See the whole list</a>
+<img src="{{imgPath}}" alt="{{title}}" style="background-color: lightgreen;">
 
 {{#if creator.role }}
 <a href="/food/{{_id}}/edit">Edit</a>
 {{/if}}
+
+
+{{!-- Add the buttons to request food --}}
+<p><a href="/dashboard">← Dashboard</a></p>
+
+
 {{/with}}

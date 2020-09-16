@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   password: String,
-  zipcode: String,
+  zipcode: Number,
   houseNumber: String,
   street: String,
   food: [
@@ -16,7 +16,7 @@ const userSchema = new Schema({
   longitude: String,
   role: {
     type: Boolean,
-    default:false
+    default: false,
   },
 });
 const User = mongoose.model("User", userSchema);
