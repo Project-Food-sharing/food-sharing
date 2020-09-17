@@ -5,7 +5,6 @@ Address:
 Street: {{street}}</br>
 House number: {{houseNumber}}</br>
 ZipCode: {{zipcode}}</br>
-{{!-- ID:{{_id}} --}}
 <a href="/profile/{{this._id}}/edit">Update Profile</a>
 
 <h3>Shared food history</h3>
@@ -16,7 +15,6 @@ ZipCode: {{zipcode}}</br>
   <p>{{description}}</p>
   <span>{{status}}</span>
   <button type="submit" id="statusAnother-btn" value="{{_id}}">{{statusAnother}}</button>
-  {{!-- <button type="submit" class="blocked-button" value={{_id}}>Blocked</button> --}}
 </div>
 {{/each}}
 
@@ -29,19 +27,15 @@ ZipCode: {{zipcode}}</br>
 <script>
 
   let goneButtons = document.querySelectorAll("#statusAnother-btn")
- // let blockedButtons = document.querySelectorAll(".blocked-button")
 
   goneButtons.forEach(statusButton => {
     statusButton.onclick = (e) => {
-     // console.log("target value",e.target.value)
-     // console.log("target innerText",e.target.innerText)
       let status = e.target.parentNode.querySelector("span").innerText
       axios.post(`/status/${e.target.value}`, {status: status}).then(response => {
 
         let newStatus = response.data == "Available" ? "Blocked" : response.data == "Blocked" ? "Gone" : "Available"
         statusButton.parentNode.querySelector("span").innerText = response.data;
         statusButton.parentNode.querySelector("button").innerText = newStatus;
-        //statusButton.innerHTML = "WORKS";
       }).catch(err => {
         console.log(err);
       })

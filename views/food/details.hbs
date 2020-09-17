@@ -13,10 +13,30 @@
 <a href="/food/{{_id}}/edit">Edit</a>
 {{/if}}
 
-
+<div>
+<span id="span2">{{status}}</span>
+  <button type="submit" id="statusAnother-btn2" value="{{_id}}">{{statusAnother}}</button>
+</div>
 
 {{!-- Add the buttons to request food --}}
 <p><a href="/dashboard">← Dashboard</a></p>
 
 
 {{/with}}
+
+
+<script>
+
+  let goneButtons2 = document.querySelector("#statusAnother-btn2")
+
+    goneButtons2.onclick = (e) => {
+      axios.post(`/blockFood/${e.target.value}`, {status: status}).then(response => {
+        goneButtons2.parentNode.querySelector("#span2").innerText = response.data;
+        goneButtons2.innerText = "Gone";
+       goneButtons2.disabled = true
+      }).catch(err => {
+        console.log(err);
+      })
+  }
+
+</script>
