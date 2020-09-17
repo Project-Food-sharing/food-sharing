@@ -69,7 +69,7 @@ router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
     date,
     zipcode,
     houseNumber,
-    street,
+    street
   } = req.body;
 
   // console.log("this is req.file", req.file);
@@ -91,7 +91,7 @@ router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
     date,
     zipcode,
     houseNumber,
-    street,
+    street
   })
     .then((newFood) => {
       User.findByIdAndUpdate(req.session.user._id, {

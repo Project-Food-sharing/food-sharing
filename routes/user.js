@@ -119,24 +119,30 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/search", (req, res, next) => {
-  const searchText = req.body.search;
-  if (!searchText) {
-    Food.find().then((allFoodDB) => {
-      const filteredFood = allFoodDB.map(function (data) {
-        if (data.status === "Available" || data.status === "Blocked")
-          return data;
-      });
-      console.log("allFoods", filteredFood);
-      res.render("dashboard", { allFoodDB: filteredFood });
-    });
-  }
-  // Food.find({title: searchText})
-  Food.find({ title: { $in: /^searchtext^/ } }).then((allFoodDB) => {
-    const filteredFood = allFoodDB.map(function (data) {
-      if (data.status === "Available" || data.status === "Blocked") return data;
-    });
-    console.log("searched", filteredFood);
-    res.render("dashboard", { allFoodDB: filteredFood });
-  });
-});
-module.exports = router;
+
+  const searchText = req.body.search
+  console.log({searchText})
+ if(!searchText) {
+  Food.find()
+  .then(allFoodDB => {
+    const filteredFood = allFoodDB.map(function(data){
+      if(data.status === "Available" || data.status === "Blocked") return data
+    })
+     console.log("allFoods",filteredFood)
+     res.render("dashboard", {allFoodDB: filteredFood})
+ })
+ }
+ Food.find({title:searchText})
+//Food.findOne({title: { $regex: /searchText/ } })
+ .then(allFoodDB => {
+ const filteredFood = allFoodDB.map(function(data){
+   if(data.status === "Available" || data.status === "Blocked") return data
+ })
+   console.log("searched",filteredFood)
+   res.render("dashboard", {allFoodDB: filteredFood})
+ console.log({allFoodDB})
+})
+})
+
+module.exports = router
+
