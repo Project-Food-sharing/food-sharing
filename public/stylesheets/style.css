@@ -8,6 +8,17 @@ body {
 a {
   color: #00b7ff; }
 
+h2 {
+  font-size: 2.3em; }
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: 300; }
+
 #map {
   position: absolute;
   top: 0;
