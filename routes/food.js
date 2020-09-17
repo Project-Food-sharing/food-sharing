@@ -41,6 +41,8 @@ router.get("/details/:id", loginCheck(), (req, res, next) => {
   Food.findById(req.params.id)
   .then(foodFromDB=>{
 
+      if(foodFromDB.status === "Available" )
+      foodFromDB.statusAnother = "Blocked";  
     if (req.session.user._id == foodFromDB.creator._id.toString()) {
     //  console.log("this is true")
       foodFromDB.creator.role = true
@@ -107,7 +109,6 @@ router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
 
   Food.findById(req.params.id)
     .then((foodData) => {
-      // console.log("this is foodData", foodData);
 
       Food.findById(req.params.id)
         .then((food) => {
@@ -149,6 +150,17 @@ router.post("/status/:foodId", (req, res, next) => {
   Food.findByIdAndUpdate(
     req.params.foodId,
     { status: newStatus },
+    { new: true }
+  ).then((editedFood) => {
+    res.send(editedFood.status);
+  });
+});
+
+router.post("/blockFood/:foodId", (req, res, next) => {
+  let status = req.body.status;
+  Food.findByIdAndUpdate(
+    req.params.foodId,
+    { status: "Blocked" },
     { new: true }
   ).then((editedFood) => {
     res.send(editedFood.status);

@@ -81,10 +81,7 @@ router.get("/profile", (req, res, next) => {
     user.food[i].statusAnother = "Blocked";  
     else if(user.food[i].status === "Blocked")
     user.food[i].statusAnother = "Gone"
-
-  
 }
-// console.log(user.food[0])
    res.render('user/profile', {user: user})
     
   })
@@ -122,4 +119,25 @@ router.get("/logout", (req, res) => {
   });
 });
 
+router.post("/search", (req, res, next) => {
+  const searchText = req.body.search
+ if(!searchText) {
+  Food.find()
+  .then(allFoodDB => {
+    const filteredFood = allFoodDB.map(function(data){
+      if(data.status === "Available" || data.status === "Blocked") return data
+    })
+     console.log("allFoods",filteredFood)
+     res.render("dashboard", {allFoodDB: filteredFood})
+ })
+ }
+ Food.find({title: searchText})
+ .then(allFoodDB => {
+  const filteredFood = allFoodDB.map(function(data){
+    if(data.status === "Available" || data.status === "Blocked") return data
+  })
+    console.log("searched",filteredFood)
+    res.render("dashboard", {allFoodDB: filteredFood})
+})
+})
 module.exports = router
