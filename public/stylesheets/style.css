@@ -95,4 +95,16 @@ textarea {
 .food-details {
   padding-left: 3%; }
 
+.signup-box {
+  background-color: #fff;
+  width: 350px;
+  border-radius: 12px;
+  color: #1e1e20;
+  padding: 2%;
+  position: fixed;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
 /*# sourceMappingURL=style.css.map */
