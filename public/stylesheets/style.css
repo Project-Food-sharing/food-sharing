@@ -13,6 +13,13 @@ a {
   bottom: 0;
   width: 100%; }
 
+.dashboard-nav {
+  background-color: #1c1b1b;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+
 .dashboard-container {
   display: flex;
   flex-direction: row;

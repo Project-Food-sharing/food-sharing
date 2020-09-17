@@ -16,6 +16,12 @@ a {
   bottom: 0;
   width: 100%;
 }
+.dashboard-nav {
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 .dashboard-container {
   display: flex;

@@ -11,8 +11,8 @@ const { uploader, cloudinary } = require("../config/cloudinary.js");
 
 router.get("/add", (req, res) => {
   let categories = ["Raw", "Prepared", "Drinks"];
- // console.log("add in food", req.session.user);
-  res.render("food/add", { categories, user:req.session.user });
+  // console.log("add in food", req.session.user);
+  res.render("food/add", { categories, user: req.session.user });
 });
 
 // LIST ALL FOOD ENTRIES
@@ -21,10 +21,11 @@ router.get("/dashboard", (req, res, next) => {
   Food.find()
     .populate("creator")
     .then((allFoodDB) => {
-      const filteredFood = allFoodDB.map(function(data){
-        if(data.status === "Available" || data.status === "Blocked") return data
-      })
-     // console.log("dashboard",filteredFood);
+      const filteredFood = allFoodDB.map(function (data) {
+        if (data.status === "Available" || data.status === "Blocked")
+          return data;
+      });
+      // console.log("dashboard",filteredFood);
       res.render("dashboard", { allFoodDB: filteredFood });
     })
     .catch((error) => {
@@ -55,7 +56,6 @@ router.get("/details/:id", loginCheck(), (req, res, next) => {
   })
 })
 
-
 // ADD NEW
 
 router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
@@ -70,12 +70,10 @@ router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
     date,
   } = req.body;
 
-
-  console.log("this is req.file", req.file);
+  // console.log("this is req.file", req.file);
   const imgName = req.file.originalname;
   const imgPath = req.file.url;
   const imgPublicId = req.file.public_id;
-
 
   Food.create({
     title,
@@ -106,7 +104,6 @@ router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
 // EDIT FOOD ENTRY
 
 router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
-
   Food.findById(req.params.id)
     .then((foodData) => {
 
@@ -139,13 +136,13 @@ router.post("/food/:id/edit", (req, res, next) => {
 
 router.post("/status/:foodId", (req, res, next) => {
   let status = req.body.status;
-  let newStatus = ""
-  if(status == "Available") {
-    newStatus = "Blocked"
-  } else if(status == "Blocked") {
-    newStatus = "Gone"
+  let newStatus = "";
+  if (status == "Available") {
+    newStatus = "Blocked";
+  } else if (status == "Blocked") {
+    newStatus = "Gone";
   } else {
-    newStatus = "Available"
+    newStatus = "Available";
   }
   Food.findByIdAndUpdate(
     req.params.foodId,
@@ -166,6 +163,7 @@ router.post("/blockFood/:foodId", (req, res, next) => {
     res.send(editedFood.status);
   });
 });
+
 
 
 module.exports = router;
