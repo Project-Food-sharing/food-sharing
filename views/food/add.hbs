@@ -1,30 +1,30 @@
-<h2>Add Food</h2>
+<h2>Share some food!</h2>
 
 <form action="/dashboard" method="POST" enctype="multipart/form-data">
 
-  <p><label for="title">Title:</label>
+  <p><label for="title">Title</label></br>
     <input type="text" name="title" id="title"></p>
 
   {{#with user}}
-  <p><label for="zipcode">Zipcode</label>
+  <p><label for="zipcode">Zipcode</label></br>
     <input type="text" name="zipcode" id="zipcode" value="{{zipcode}}"></p>
 
-  <p><label for="street">Street</label>
+  <p><label for="street">Street</label></br>
     <input type="text" name="street" id="street" value="{{street}}"></p>
 
-  <p><label for="houseNumber">HouseNumber</label>
+  <p><label for="houseNumber">House n°</label></br>
     <input type="text" name="houseNumber" id="houseNumber" value="{{houseNumber}}"></p>
   {{/with}}
 
-  <p><label for="description">Description:</label>
+  <p><label for="description">Description:</label></br>
     <textarea name="description" id="description"></textarea></p>
 
   {{#each categories}}
-  <p><input type="checkbox" name="categories" id="categories" value={{this}}>
+  <p><input type="checkbox" name="categories" id="categories" value={{this}}></br>
     <label for="categories">{{this}}</label></p>
   {{/each}}
 
-  <p><label for="photo">Upload photo:</label>
+  <p><label for="photo">Upload photo:</label></br>
     <input type="file" name="photo" id="photo"></p>
 
   <hr>

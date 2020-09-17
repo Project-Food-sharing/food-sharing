@@ -1,14 +1,16 @@
-<form action="/login" method="POST">
+<div class="sign-up-box">
+  <form action="/login" method="POST">
 
-<label for="username">Username:</label>
-<input type="text" name="username" id="username">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username">
 
-<label for="password">Password:</label>
-<input type="password" name="password">
+    <label for="password">Password:</label>
+    <input type="password" name="password">
 
-<button type="submit">Log In</button>
-</form>
+    <button type="submit">Log In</button>
+  </form>
 
-{{#if message}}
-<p style='color: red'>{{message}}</p>
-{{/if}}
+  {{#if message}}
+  <p style='color: red'>{{message}}</p>
+  {{/if}}
+</div>
