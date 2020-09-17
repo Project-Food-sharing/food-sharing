@@ -63,7 +63,6 @@
     fooditems.data.forEach(element => {
       address = `${element.houseNumber}, ${element.street}, ${element.zipcode}`
       let options = element.title
-      //  console.log({ options })
       axios
         .get(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoidGltYm90aW1iZXIiLCJhIjoiY2s2Z2s1aTU0MHltMzNrcXB3bjlnYWNyYiJ9.14z3LvxL-5ovU8Ur6CuJtw`
