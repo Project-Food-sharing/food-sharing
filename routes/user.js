@@ -131,20 +131,29 @@ router.post("/search", (req, res, next) => {
       res.render("dashboard", { allFoodDB: filteredFood });
     });
   }
-  Food.find({ title: searchText })
-    //Food.findOne({title: { $regex: /searchText/ } })
-    .then((allFoodDB) => {
-      const filteredFood = allFoodDB.map(function (data) {
-        if (data.status === "Available" || data.status === "Blocked")
-          return data;
-      });
+
+  Food.find({ title: new RegExp(searchText, "gi") }).then(
+    async (searchFood) => {
+      let filteredFood;
+      if (searchFood.length < 1) {
+        console.log(searchFood, " allFoodDB");
+        await Food.find().then((allFoodDB) => {
+          filteredFood = allFoodDB.map(function (data) {
+            if (data.status === "Available" || data.status === "Blocked")
+              return data;
+          });
+        });
+      } else {
+        filteredFood = searchFood.map(function (data) {
+          if (data.status === "Available" || data.status === "Blocked")
+            return data;
+        });
+      }
       console.log("searched", filteredFood);
-      res.render("dashboard", {
-        allFoodDB: filteredFood,
-        user: req.session.user,
-      });
+      res.render("dashboard", { allFoodDB: filteredFood });
       console.log({ allFoodDB });
-    });
+    }
+  );
 });
 
 module.exports = router;
