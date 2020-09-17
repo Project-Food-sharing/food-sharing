@@ -1,6 +1,11 @@
 <div class="dashboard-container">
-
   <div class="left-column">
+    <div class="search">
+      <form action="/search" method="POST">
+        <input type="text" name="search" placeholder="Search for food">
+        <button tpe="submit">Search</button>
+      </form>
+    </div>
     <div class="food-list">
 
       {{#each allFoodDB}}
@@ -12,8 +17,6 @@
           </a>
           <p>{{status}}</p>
           <span class="dashboard-address"><i class="fas fa-map-marker-alt"></i> {{street}}, {{houseNumber}}</span>
-
-
         </div>
 
         <div class="img-container">
@@ -48,7 +51,6 @@
       anchor: "top-left",
     },
   });
-
   const popup = new mapboxgl.Popup();
   popup.addTo(map);
   popup.setLngLat([25.405, 52.52]);
@@ -56,31 +58,30 @@
   popup.setHTML(
     `<h2>Click here for more info!</h2> <button>See more</button>`
   );
-
-    axios.get('/rawdata').then(fooditems =>{
-      console.log(fooditems.data)
-   fooditems.data.forEach(element => {
-     address = `${element.houseNumber}, ${element.street}, ${element.zipcode}`
-     let options = element.title
-     console.log({options})
-    axios
-    .get(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoidGltYm90aW1iZXIiLCJhIjoiY2s2Z2s1aTU0MHltMzNrcXB3bjlnYWNyYiJ9.14z3LvxL-5ovU8Ur6CuJtw`
-    )
-    .then((response) => {
-     let location = response.data.features[0].center;
-      let marker = new mapboxgl.Marker({
-      //  element: options
-        scale: 1,
-        draggable: false,
-        color: "red",
-      });
-  marker.setLngLat(location);
-      marker.addTo(map);
+  axios.get('/rawdata').then(fooditems => {
+    console.log(fooditems.data)
+    fooditems.data.forEach(element => {
+      address = `${element.houseNumber}, ${element.street}, ${element.zipcode}`
+      let options = element.title
+      console.log({ options })
+      axios
+        .get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoidGltYm90aW1iZXIiLCJhIjoiY2s2Z2s1aTU0MHltMzNrcXB3bjlnYWNyYiJ9.14z3LvxL-5ovU8Ur6CuJtw`
+        )
+        .then((response) => {
+          let location = response.data.features[0].center;
+          let marker = new mapboxgl.Marker({
+            //  element: options
+            scale: 1,
+            draggable: false,
+            color: "red",
+          });
+          marker.setLngLat(location);
+          marker.addTo(map);
+        });
     });
+
   });
-      
-});
 
 
 </script>

@@ -89,7 +89,7 @@ router.get("/profile", (req, res, next) => {
 router.get("/profile/:id/edit", (req, res, next) => {
   console.log("params", req.params);
   const id = req.params.id;
-  res.render("user/edit", { id: id });
+  res.render("user/edit", { id: id, user: req.session.user });
 });
 
 router.post("/profile/:id/edit", (req, res, next) => {
@@ -119,30 +119,32 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/search", (req, res, next) => {
+  const searchText = req.body.search;
+  console.log({ searchText });
+  if (!searchText) {
+    Food.find().then((allFoodDB) => {
+      const filteredFood = allFoodDB.map(function (data) {
+        if (data.status === "Available" || data.status === "Blocked")
+          return data;
+      });
+      console.log("allFoods", filteredFood);
+      res.render("dashboard", { allFoodDB: filteredFood });
+    });
+  }
+  Food.find({ title: searchText })
+    //Food.findOne({title: { $regex: /searchText/ } })
+    .then((allFoodDB) => {
+      const filteredFood = allFoodDB.map(function (data) {
+        if (data.status === "Available" || data.status === "Blocked")
+          return data;
+      });
+      console.log("searched", filteredFood);
+      res.render("dashboard", {
+        allFoodDB: filteredFood,
+        user: req.session.user,
+      });
+      console.log({ allFoodDB });
+    });
+});
 
-  const searchText = req.body.search
-  console.log({searchText})
- if(!searchText) {
-  Food.find()
-  .then(allFoodDB => {
-    const filteredFood = allFoodDB.map(function(data){
-      if(data.status === "Available" || data.status === "Blocked") return data
-    })
-     console.log("allFoods",filteredFood)
-     res.render("dashboard", {allFoodDB: filteredFood})
- })
- }
- Food.find({title:searchText})
-//Food.findOne({title: { $regex: /searchText/ } })
- .then(allFoodDB => {
- const filteredFood = allFoodDB.map(function(data){
-   if(data.status === "Available" || data.status === "Blocked") return data
- })
-   console.log("searched",filteredFood)
-   res.render("dashboard", {allFoodDB: filteredFood})
- console.log({allFoodDB})
-})
-})
-
-module.exports = router
-
+module.exports = router;

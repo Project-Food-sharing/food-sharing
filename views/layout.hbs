@@ -12,25 +12,18 @@
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <title>{{title}}</title>
 </head>
+{{#if user}}
+<div class="dashboard-nav">
+  <div class="user-profile"><a href="/profile"><span style="color: #fff; font-size: 34px"><i
+          class="fas fa-user-circle"></i></span></a><a href="/logout">LOG OUT</a></div>
+</div>
+{{/if}}
+
 
 <body>
-  <div class="dashboard-nav">
-
-    <div class="search">
-      <form action="/search" method="POST">
-        <input type="text" name="search" placeholder="Search for food">
-        <button tpe="submit">Search</button>
-    </div>
-
-    <div class="user-profile"><a href="/profile"><span style="color: #fff; font-size: 34px"><i
-            class="fas fa-user-circle"></i></span></a><a href="/logout">LOG OUT</a></div>
-  </div>
 
   {{{body}}}
 
-  {{!-- <div class="footer">
-    <p>Created with ❤️</p>
-  </div> --}}
 </body>
 
 </html>

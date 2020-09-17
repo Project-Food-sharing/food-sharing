@@ -26,7 +26,10 @@ router.get("/dashboard", (req, res, next) => {
           return data;
       });
       // console.log("dashboard",filteredFood);
-      res.render("dashboard", { allFoodDB: filteredFood });
+      res.render("dashboard", {
+        allFoodDB: filteredFood,
+        user: req.session.user,
+      });
     })
     .catch((error) => {
       next(error);
@@ -48,7 +51,10 @@ router.get("/details/:id", loginCheck(), (req, res, next) => {
         foodFromDB.creator.role = true;
       }
       //option logic
-      res.render("food/details", { newFood: foodFromDB });
+      res.render("food/details", {
+        newFood: foodFromDB,
+        user: req.session.user,
+      });
     })
     .catch((err) => {
       next(err);
@@ -69,7 +75,7 @@ router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
     date,
     zipcode,
     houseNumber,
-    street
+    street,
   } = req.body;
 
   // console.log("this is req.file", req.file);
@@ -91,7 +97,7 @@ router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
     date,
     zipcode,
     houseNumber,
-    street
+    street,
   })
     .then((newFood) => {
       User.findByIdAndUpdate(req.session.user._id, {
@@ -124,7 +130,11 @@ router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
             }
           });
           console.log("this is options", options);
-          res.render("food/edit", { foodData, options });
+          res.render("food/edit", {
+            foodData,
+            options,
+            user: req.session.user,
+          });
         })
         .catch((err) => console.log(err));
     })
