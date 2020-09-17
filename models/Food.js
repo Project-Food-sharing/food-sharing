@@ -14,7 +14,7 @@ const celebritySchema = new Schema({
   },
   statusAnother: {
     type: String,
-   // default: "Blocked",
+    // default: "Blocked",
   },
   creator: {
     type: Schema.Types.ObjectId,

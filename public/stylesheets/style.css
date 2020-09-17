@@ -1,8 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;700&display=swap");
 body {
   margin: 0;
-  padding: 2%;
-  font-family: "Rubik", sans-serif; }
+  padding: 0;
+  height: 100%;
+  font-family: "Signika", sans-serif; }
 
 a {
   color: #00b7ff; }
@@ -14,7 +15,7 @@ a {
   width: 100%; }
 
 .dashboard-nav {
-  background-color: #1c1b1b;
+  background-color: #1e1e20;
   height: 10vh;
   display: flex;
   flex-direction: row;
@@ -25,15 +26,65 @@ a {
   flex-direction: row;
   justify-content: space-between; }
 
+.img-container {
+  width: 50px;
+  height: auto; }
+
+.img-dashboard {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 6px;
+  display: block; }
+
 .food-list {
   position: relative;
   overflow-y: auto;
-  height: 80vh; }
+  height: 75vh; }
+
+.food-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #a2a2a9;
+  padding: 15px 0; }
+
+.dashboard-address {
+  color: #afafaf;
+  font-size: 14px;
+  font-weight: 300; }
 
 .left-column {
-  width: 25%; }
+  width: 25%;
+  padding: 0 2% 2% 2%; }
 
 .food-map {
   width: 75%; }
+
+.add-btn {
+  background-color: #1e1e20;
+  padding: 5% 10%;
+  border-radius: 27px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center; }
+
+.food-details-container {
+  display: flex; }
+
+.food-details {
+  padding-left: 3%; }
+
+.label {
+  color: white;
+  padding: 8px; }
+
+.available {
+  background-color: #4caf50; }
+
+.blocked {
+  background-color: #2196f3; }
+
+.gone {
+  background-color: #ff9800; }
 
 /*# sourceMappingURL=style.css.map */
