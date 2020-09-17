@@ -1,22 +1,30 @@
-<h2>Detailed food view</h2>
 {{#with newFood}}
-<h3>{{title}}</h3>
-<p>{{description}}</p>
-<p>{{status}}</p>
-<p>{{date}}</p>
 
-<p>IMG PATH : {{imgPath}}</p>
+<div class="food-details-container">
+  <img src="{{imgPath}}" alt="{{title}}">
 
-<img src="{{imgPath}}" alt="{{title}}" style="background-color: lightgreen;">
+  <div class="food-details">
+    <h2>{{title}}</h2>
+    <p>{{description}}</p>
+    <p>{{status}}</p>
+    <p>{{date}}</p>
+
+    <hr>
+
+    <span id="span2">{{status}}</span>
+    <button type="submit" id="statusAnother-btn2" value="{{_id}}">{{statusAnother}}</button>
+  </div>
+
+</div>
+
+
+<hr>
 
 {{#if creator.role }}
 <a href="/food/{{_id}}/edit">Edit</a>
 {{/if}}
 
-<div>
-<span id="span2">{{status}}</span>
-  <button type="submit" id="statusAnother-btn2" value="{{_id}}">{{statusAnother}}</button>
-</div>
+
 
 {{!-- Add the buttons to request food --}}
 <p><a href="/dashboard">← Dashboard</a></p>
@@ -29,14 +37,14 @@
 
   let goneButtons2 = document.querySelector("#statusAnother-btn2")
 
-    goneButtons2.onclick = (e) => {
-      axios.post(`/blockFood/${e.target.value}`, {status: status}).then(response => {
-        goneButtons2.parentNode.querySelector("#span2").innerText = response.data;
-        goneButtons2.innerText = "Gone";
-       goneButtons2.disabled = true
-      }).catch(err => {
-        console.log(err);
-      })
+  goneButtons2.onclick = (e) => {
+    axios.post(`/blockFood/${e.target.value}`, { status: status }).then(response => {
+      goneButtons2.parentNode.querySelector("#span2").innerText = response.data;
+      goneButtons2.innerText = "Gone";
+      goneButtons2.disabled = true
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
 </script>

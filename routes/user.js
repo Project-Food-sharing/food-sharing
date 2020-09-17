@@ -73,19 +73,18 @@ router.post("/login", (req, res, next) => {
 //update this once the dashboard page is ready with id
 router.get("/profile", (req, res, next) => {
   User.findById(req.session.user._id)
-  .populate("food")
-  .then(user => {
-  console.log("number",user.food.length)
-  for(let i = 0; i<user.food.length;i++){
-    if(user.food[i].status === "Available" )
-    user.food[i].statusAnother = "Blocked";  
-    else if(user.food[i].status === "Blocked")
-    user.food[i].statusAnother = "Gone"
-}
-   res.render('user/profile', {user: user})
-    
-  })
-})
+    .populate("food")
+    .then((user) => {
+      console.log("number", user.food.length);
+      for (let i = 0; i < user.food.length; i++) {
+        if (user.food[i].status === "Available")
+          user.food[i].statusAnother = "Blocked";
+        else if (user.food[i].status === "Blocked")
+          user.food[i].statusAnother = "Gone";
+      }
+      res.render("user/profile", { user: user });
+    });
+});
 
 router.get("/profile/:id/edit", (req, res, next) => {
   console.log("params", req.params);
@@ -120,24 +119,24 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/search", (req, res, next) => {
-  const searchText = req.body.search
- if(!searchText) {
-  Food.find()
-  .then(allFoodDB => {
-    const filteredFood = allFoodDB.map(function(data){
-      if(data.status === "Available" || data.status === "Blocked") return data
-    })
-     console.log("allFoods",filteredFood)
-     res.render("dashboard", {allFoodDB: filteredFood})
- })
- }
- Food.find({title: searchText})
- .then(allFoodDB => {
-  const filteredFood = allFoodDB.map(function(data){
-    if(data.status === "Available" || data.status === "Blocked") return data
-  })
-    console.log("searched",filteredFood)
-    res.render("dashboard", {allFoodDB: filteredFood})
-})
-})
-module.exports = router
+  const searchText = req.body.search;
+  if (!searchText) {
+    Food.find().then((allFoodDB) => {
+      const filteredFood = allFoodDB.map(function (data) {
+        if (data.status === "Available" || data.status === "Blocked")
+          return data;
+      });
+      console.log("allFoods", filteredFood);
+      res.render("dashboard", { allFoodDB: filteredFood });
+    });
+  }
+  // Food.find({title: searchText})
+  Food.find({ title: { $in: /^searchtext^/ } }).then((allFoodDB) => {
+    const filteredFood = allFoodDB.map(function (data) {
+      if (data.status === "Available" || data.status === "Blocked") return data;
+    });
+    console.log("searched", filteredFood);
+    res.render("dashboard", { allFoodDB: filteredFood });
+  });
+});
+module.exports = router;
