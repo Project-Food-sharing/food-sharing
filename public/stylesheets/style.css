@@ -1,14 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;700&display=swap");
 body {
-  margin: 0;
+  margin: 0 0 50px 0;
   padding: 0;
   height: 100%;
   font-family: "Signika", sans-serif;
-  background-color: #1e1e20;
-  color: #fff; }
+  color: #fff;
+  background-color: #32323e; }
 
 a {
-  color: #00b7ff; }
+  color: #fff;
+  text-decoration: none; }
+
+h1 {
+  font-size: 3.6em; }
 
 h2 {
   font-size: 2.3em; }
@@ -19,7 +23,40 @@ select,
 textarea {
   font-family: inherit;
   font-size: 100%;
-  font-weight: 300; }
+  font-weight: 300;
+  border-radius: 23px;
+  height: 33px; }
+
+textarea {
+  height: 250px;
+  padding: 4%; }
+
+hr {
+  border-color: #58585f; }
+
+button {
+  color: #fff;
+  background-color: #7976ff; }
+
+input {
+  padding-left: 4%; }
+
+img {
+  border-radius: 50px; }
+
+input[type="text"],
+input[type="password"],
+textarea {
+  width: 100%;
+  border: 1px solid #ceced6; }
+
+::placeholder,
+::-webkit-input-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+:-moz-placeholder {
+  opacity: 1;
+  color: red; }
 
 #map {
   position: absolute;
@@ -31,12 +68,14 @@ textarea {
   height: 10vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-between; }
+  justify-content: flex-end;
+  align-items: center; }
 
 .dashboard-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between; }
+  justify-content: space-between;
+  padding-right: 2%; }
 
 .img-container {
   width: 50px;
@@ -60,24 +99,44 @@ textarea {
   display: flex;
   flex-direction: column; }
 
-.add-btn {
-  background-color: #f64b29;
+.primary-btn,
+.secondary-btn,
+.signup-btn {
+  border-radius: 50px;
+  color: #fff; }
+
+.primary-btn {
+  background-color: #7976ff;
   padding: 5% 10%;
-  border-radius: 27px;
-  color: #fff;
   text-decoration: none;
   text-align: center;
-  height: 15%; }
+  text-align: center;
+  height: 25px; }
+
+.secondary-btn {
+  background-color: #272730;
+  text-decoration: none;
+  text-align: center;
+  height: 25px;
+  width: 350px;
+  font-size: 14px;
+  font-weight: 600; }
+
+.signup-btn {
+  background-color: #7976ff;
+  text-decoration: none;
+  text-align: center;
+  width: 100%; }
 
 .food-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid #38383e;
+  border-bottom: 1px solid #58585f;
   padding: 15px 0; }
 
 .dashboard-address {
-  color: #878788;
+  color: #a4a4a7;
   font-size: 14px;
   font-weight: 300; }
 
@@ -90,7 +149,7 @@ textarea {
   width: 75%; }
 
 .food-details-container {
-  display: flex; }
+  text-align: center; }
 
 .food-details {
   padding-left: 3%; }
@@ -101,10 +160,68 @@ textarea {
   border-radius: 12px;
   color: #1e1e20;
   padding: 2%;
-  position: fixed;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); }
+  height: 30vh;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+
+.mapboxgl-popup-content {
+  color: #32323e;
+  font-family: "Signika", sans-serif; }
+
+.page-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+
+.categories-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center; }
+
+.index-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; }
+
+.welcome-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; }
+
+.form-login {
+  width: 95%; }
+
+.line-text {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #cacaca;
+  line-height: 0.1em;
+  margin: 10px 0 20px; }
+
+.line-white-bg {
+  background: #fff;
+  padding: 0 10px; }
+
+.h3-login {
+  font-size: 2em;
+  font-weight: 500;
+  margin-bottom: 5px; }
+
+.food-history {
+  background-color: #272730;
+  padding: 2%;
+  margin-top: 30px; }
+
+.span-status {
+  font-weight: 500;
+  font-size: 0.7em;
+  background-color: #4e4e58;
+  padding: 2%;
+  text-transform: uppercase; }
+
+/*# sourceMappingURL=style.css.map */
 
 /*# sourceMappingURL=style.css.map */

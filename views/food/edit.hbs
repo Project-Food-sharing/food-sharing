@@ -1,28 +1,30 @@
-<h2>Edit Food entry</h2>
+<div class="page-wrapper">
+  <h2>Edit Food entry</h2>
 
-{{#with foodData}}
+  <p><a href="/dashboard">← Back to Dashboard</a></p>
 
-<form action="/food/{{_id}}/edit" method="POST">
+  {{#with foodData}}
 
-  <p><label for="title">Title:</label>
-    <input type="text" name="title" id="title" value="{{title}}"></p>
+  <form action="/food/{{_id}}/edit" method="POST">
 
-  <label for="zipcode">Zipcode</label>
-  <input type="text" name="zipcode" id="zipcode" value={{zipcode}}>
+    <p><input type="text" name="title" id="title" value="{{title}}"></p>
 
-  <label for="street">Street</label>
-  <input type="text" name="street" id="street" value={{street}}>
+    <p><input type="text" name="street" id="street" value={{street}}></p>
 
-  <label for="houseNumber">House number</label>
-  <input type="text" name="houseNumber" id="houseNumber" value={{houseNumber}}>
+    <p><input type="text" name="houseNumber" id="houseNumber" value={{houseNumber}}></p>
 
-  <p><label for="description">Description:</label>
-    <textarea name="description" id="description">{{description}}</textarea></p>
+    <p><input type="text" name="zipcode" id="zipcode" value={{zipcode}}></p>
 
-  {{/with}}
+    <p><label for="description">Your message</label>
+      <textarea name="description" id="description">{{description}}</textarea></p>
 
-  {{{options}}}
+    {{/with}}
+    <div class="categories-row">
+      {{{options}}}
+    </div>
 
-  <hr>
-  <button type="submit">Update your entry</button>
-</form>
+    <hr>
+    <p><button type="submit" class="signup-btn">Update your entry</button></p>
+  </form>
+
+</div>

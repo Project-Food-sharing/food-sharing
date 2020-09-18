@@ -31,7 +31,7 @@ router.post("/signup", (req, res, next) => {
     .then((found) => {
       if (found !== null) {
         res.render("user/signup", {
-          message: "This username is already taken",
+          message: `This username is already taken</br><a href="/">Go Try log in again</a></a>`,
         });
       } else {
         //hash the password, create the user and redirect to profile page
