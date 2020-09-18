@@ -93,7 +93,7 @@ textarea {
 .food-list {
   position: relative;
   overflow-y: auto;
-  height: 84%; }
+  height: 83%; }
 
 .btn-container {
   display: flex;
@@ -151,9 +151,6 @@ textarea {
 .food-details-container {
   text-align: center; }
 
-.food-details {
-  padding-left: 3%; }
-
 .signup-box {
   background-color: #fff;
   width: 350px;
@@ -210,17 +207,27 @@ textarea {
   font-weight: 500;
   margin-bottom: 5px; }
 
-.food-history {
+.dark-box {
   background-color: #272730;
   padding: 2%;
-  margin-top: 30px; }
+  margin-top: 30px;
+  max-width: 600px; }
 
 .span-status {
-  font-weight: 500;
-  font-size: 0.7em;
+  font-weight: 600;
+  font-size: 0.8em;
   background-color: #4e4e58;
   padding: 2%;
   text-transform: uppercase; }
+
+.img-food-details {
+  width: 270px; }
+
+.back-btn {
+  color: #ffffff;
+  background-color: #ffffff63;
+  padding: 10px 15px;
+  border-radius: 30px; }
 
 /*# sourceMappingURL=style.css.map */
 

@@ -2,7 +2,7 @@
   {{#with user}}
   <h2>Hi, {{username}} 👋🏼</h2>
 
-  <p><a href="/dashboard">← Back to Dashboard</a></p>
+  <p><a href="/dashboard" class="back-btn">←Dashboard</a></p>
 
   <p style="text-align: center;">
     {{street}}, {{houseNumber}}</br>
@@ -11,7 +11,7 @@
   <a href="/profile/{{this._id}}/edit"> ✏️ Edit Profile</a>
 
 
-  <div class="food-history">
+  <div class="dark-box">
 
     <div class="food-col-left">
       {{#each food}}

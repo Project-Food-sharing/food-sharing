@@ -1,7 +1,7 @@
 <div class="page-wrapper">
   <h2>Share some food!</h2>
 
-  <p><a href="/dashboard">← Back to Dashboard</a></p>
+  <p><a href="/dashboard" class="back-btn">←Dashboard</a></p>
 
   <form action="/dashboard" method="POST" enctype="multipart/form-data">
 
@@ -19,16 +19,16 @@
     <p><textarea name="description" id="description" placeholder="Write your message here..."></textarea></p>
 
     <div class="categories-row">
-      {{!-- <img src="./noun_grapes_991771.svg" alt="raw-food">
-      <img src="./noun_grapes_991771.svg" alt="raw-food">
-      <img src="./noun_grapes_991771.svg" alt="raw-food"> --}}
+      {{!-- <img src="/public/images/noun_grapes_991771.svg" alt="raw-food">
+      <img src="/noun_grapes_991771.svg" alt="raw-food">
+      <img src="/noun_grapes_991771.svg" alt="raw-food"> --}}
       {{#each categories}}
       <p><input type="checkbox" name="categories" id="categories" value={{this}}></br>
         <label for="categories">{{this}}</label></p>
       {{/each}}
     </div>
 
-    <p><label for="photo">Upload photo:</label></br>
+    <p>
       <input type="file" name="photo" id="photo"></p>
 
     <hr>
