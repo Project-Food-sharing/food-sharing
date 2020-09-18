@@ -2,7 +2,7 @@
   <div class="left-column">
     <div class="search">
       <form action="/search" method="POST">
-        <input type="text" name="search" placeholder="Search for food">
+        <input type="text" name="search" placeholder="Search for food" style="width: 95%;">
         <button tpe="submit" style="display:none">Search</button>
       </form>
     </div>
@@ -16,7 +16,8 @@
             <h3>{{title}}</h3>
           </a>
           <p>{{status}}</p>
-          <span class="dashboard-address"><i class="fas fa-map-marker-alt"></i> {{street}}, {{houseNumber}}</span>
+          <span class="dashboard-address"><i class="fas fa-map-marker-alt"></i> {{street}}, {{houseNumber}}
+            {{zipcode}}</span>
         </div>
 
         <div class="img-container">
