@@ -5,13 +5,16 @@ body {
   height: 100%;
   font-family: "Signika", sans-serif;
   background-color: #1e1e20;
-  color: #fff; }
+  color: #fff;
+}
 
 a {
-  color: #00b7ff; }
+  color: #00b7ff;
+}
 
 h2 {
-  font-size: 2.3em; }
+  font-size: 2.3em;
+}
 
 button,
 input,
@@ -19,46 +22,55 @@ select,
 textarea {
   font-family: inherit;
   font-size: 100%;
-  font-weight: 300; }
+  font-weight: 300;
+}
 
 #map {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 100%; }
+  width: 100%;
+}
 
 .dashboard-nav {
   height: 10vh;
   display: flex;
   flex-direction: row;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 .dashboard-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 .img-container {
   width: 50px;
-  height: auto; }
+  height: auto;
+}
 
 .img-dashboard {
   max-width: 100%;
   max-height: 100%;
   border-radius: 6px;
-  display: block; }
+  display: block;
+}
 
 .search {
-  height: 5%; }
+  height: 5%;
+}
 
 .food-list {
   position: relative;
   overflow-y: auto;
-  height: 84%; }
+  height: 84%;
+}
 
 .btn-container {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+}
 
 .add-btn {
   background-color: #f64b29;
@@ -67,33 +79,40 @@ textarea {
   color: #fff;
   text-decoration: none;
   text-align: center;
-  height: 15%; }
+  height: 15%;
+}
 
 .food-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid #38383e;
-  padding: 15px 0; }
+  padding: 15px 0;
+}
 
 .dashboard-address {
   color: #878788;
   font-size: 14px;
-  font-weight: 300; }
+  font-weight: 300;
+}
 
 .left-column {
   width: 25%;
   padding: 0 2% 0 2%;
-  height: 90vh; }
+  height: 90vh;
+}
 
 .food-map {
-  width: 75%; }
+  width: 75%;
+}
 
 .food-details-container {
-  display: flex; }
+  display: flex;
+}
 
 .food-details {
-  padding-left: 3%; }
+  padding-left: 3%;
+}
 
 .signup-box {
   background-color: #fff;
@@ -105,6 +124,12 @@ textarea {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+}
+
+.my-class {
+  color: black;
+  /* text-decoration-color: #f64b29; */
+}
 
 /*# sourceMappingURL=style.css.map */
