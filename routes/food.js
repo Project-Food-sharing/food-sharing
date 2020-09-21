@@ -78,7 +78,7 @@ router.post("/dashboard", uploader.single("photo"), (req, res, next) => {
     street,
   } = req.body;
 
-  // console.log("this is req.file", req.file);
+  console.log("this is req.file", req.file);
   const imgName = req.file.originalname;
   const imgPath = req.file.url;
   const imgPublicId = req.file.public_id;
@@ -143,7 +143,28 @@ router.get("/food/:id/edit", loginCheck(), (req, res, next) => {
 
 router.post("/food/:id/edit", (req, res, next) => {
   const id = req.params.id;
-  res.redirect(`/details/${id}`);
+
+  const {
+    title,
+    zipcode,
+    street,
+    houseNumber,
+    description,
+    categories,
+  } = req.body;
+
+  Food.findByIdAndUpdate(id, {
+    title,
+    zipcode,
+    street,
+    houseNumber,
+    description,
+    categories,
+  })
+    .then((found) => {
+      res.redirect(`/details/${id}`);
+    })
+    .catch((error) => error);
 });
 
 // /gone/{{_id}}

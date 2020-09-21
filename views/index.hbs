@@ -1,4 +1,31 @@
-<h1>Welcome to food sharing app</h1>
+<div class="index-wrapper">
 
-<a href="/signup">SignUp</a>
-<a href="/login">Login</a>
+  <div class="welcome-message">
+    <h1>Welcome to</br>FoodSharingApp</h1>
+    <span style="font-size: 3em;">🍎 🍌 🍔 🍳 🧃</span>
+
+  </div>
+
+  <div class="signup-box">
+    <form action="/login" method="POST" class="form-login">
+
+      <p>
+        <input type="text" name="username" id="username" placeholder="Username"></p>
+
+      <p>
+        <input type="password" name="password" placeholder="Password"></p>
+
+      <p><button type="submit" class="secondary-btn">Log in</button></p>
+    </form>
+
+    {{!-- <div class="or-signup"> --}}
+    {{#if message}}
+    <p style='color: red'>{{message}}</p>
+    {{/if}}
+    <p class="line-text"><span class="line-white-bg">or</span></p>
+    <a href="/signup" class="signup-btn">Sign up</a>
+    {{!-- </div> --}}
+
+  </div>
+
+</div>

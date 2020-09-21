@@ -1,28 +1,38 @@
-<h1>Profile</h1>
-{{#with user}}
-Name:{{username}}</br>
-Address:
-Street: {{street}}</br>
-House number: {{houseNumber}}</br>
-ZipCode: {{zipcode}}</br>
-<a href="/profile/{{this._id}}/edit">Update Profile</a>
+<div class="page-wrapper">
+  {{#with user}}
+  <h2>Hi, {{username}} 👋🏼</h2>
 
-<h3>Shared food history</h3>
+  <p><a href="/dashboard" class="back-btn">←Dashboard</a></p>
 
-{{#each food}}
-<div class="insidefood">
-  <p>{{title}}</p>
-  <p>{{description}}</p>
-  <span>{{status}}</span>
-  <button type="submit" id="statusAnother-btn" value="{{_id}}">{{statusAnother}}</button>
+  <p style="text-align: center;">
+    {{street}}, {{houseNumber}}</br>
+    {{zipcode}}</p>
+
+  <a href="/profile/{{this._id}}/edit"> ✏️ Edit Profile</a>
+
+
+  <div class="dark-box">
+
+    <div class="food-col-left">
+      {{#each food}}
+      <h3>{{title}}</h3>
+      <p><span class="span-status"> {{status}}</span> </p>
+      <p>{{description}}</p>
+      <div class="food-col-right">
+
+        <button type="submit" id="statusAnother-btn" value="{{_id}}" class="signup-btn">{{statusAnother}}</button>
+      </div>
+      <hr>
+    </div>
+    {{/each}}
+
+  </div>
+
+
+  {{/with}}
+
 </div>
-{{/each}}
 
-<hr>
-
-<a href="/add">Share again!</a>
-
-{{/with}}
 
 <script>
 
@@ -31,7 +41,7 @@ ZipCode: {{zipcode}}</br>
   goneButtons.forEach(statusButton => {
     statusButton.onclick = (e) => {
       let status = e.target.parentNode.querySelector("span").innerText
-      axios.post(`/status/${e.target.value}`, {status: status}).then(response => {
+      axios.post(`/status/${e.target.value}`, { status: status }).then(response => {
 
         let newStatus = response.data == "Available" ? "Blocked" : response.data == "Blocked" ? "Gone" : "Available"
         statusButton.parentNode.querySelector("span").innerText = response.data;
@@ -43,4 +53,3 @@ ZipCode: {{zipcode}}</br>
   })
 
 </script>
-

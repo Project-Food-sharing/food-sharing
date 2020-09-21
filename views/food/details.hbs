@@ -1,36 +1,40 @@
-{{#with newFood}}
+<div class="page-wrapper">
+  {{#with newFood}}
 
-<div class="food-details-container">
-  <img src="{{imgPath}}" alt="{{title}}">
+  <div class="food-details-container">
+    <img src="{{imgPath}}" alt="{{title}}" class="img-food-details">
 
-  <div class="food-details">
-    <h2>{{title}}</h2>
-    <p>{{description}}</p>
-    <p>{{status}}</p>
-    <p>{{date}}</p>
+    <div class="food-details">
+      <h2>{{title}}</h2>
+      <p><a href="/dashboard" class="back-btn">←Dashboard</a></p>
+      </br>
+      {{#if creator.role }}
+      <a href="/food/{{_id}}/edit"> ✏️ Edit food entry</a>
+      {{/if}}
 
-    <hr>
 
-    <span id="span2">{{status}}</span>
-    <button type="submit" id="statusAnother-btn2" value="{{_id}}">{{statusAnother}}</button>
+      <p>{{date}}</p>
+      <div class="dark-box">
+        <p>{{description}}</p>
+
+        <hr>
+
+        <p style="font-weight: 300;">To pick up in <br>
+          <spa style="font-weight: 600;" n><i class="fas fa-map-marker-alt"></i> {{street}} {{houseNumber}},
+            {{zipcode}}</span>
+        </p>
+        <hr>
+
+        <p>This item is now <span id="span2" class="span-status"> {{status}}</span></p>
+
+        <button type="submit" id="statusAnother-btn2" value="{{_id}}" class="signup-btn">{{statusAnother}}</button>
+      </div>
+
+    </div>
   </div>
 
+  {{/with}}
 </div>
-
-
-<hr>
-
-{{#if creator.role }}
-<a href="/food/{{_id}}/edit">Edit</a>
-{{/if}}
-
-
-
-{{!-- Add the buttons to request food --}}
-<p><a href="/dashboard">← Dashboard</a></p>
-
-
-{{/with}}
 
 
 <script>

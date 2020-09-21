@@ -1,18 +1,22 @@
-<h2>Edit Profile</h2>
+<div class="page-wrapper">
+  <h2>Edit Profile</h2>
 
-{{#with id}}
-<form action="/profile/{{this}}/edit" method="POST">
+  {{#with id}}
 
-  <label for="zipcode">Zipcode</label>
-  <input type="text" name="zipcode" id="zipcode">
+  <p><a href="/profile" class="back-btn">←Pofile</a></p>
 
-  <label for="street">Street</label>
-  <input type="text" name="street" id="street">
+  <form action="/profile/{{this}}/edit" method="POST">
 
-  <label for="houseNumber">HouseNumber</label>
-  <input type="text" name="houseNumber" id="houseNumber">
+    <p><input type="text" name="street" id="street" placeholder="Street"></p>
 
-  <button type="submit">SUBMIT</button>
-</form>
+    <p><input type="text" name="houseNumber" id="houseNumber" placeholder="House n°"></p>
 
-{{/with}}
+    <p><input type="text" name="zipcode" id="zipcode" placeholder="PLZ"></p>
+
+    <hr>
+    <button type="submit" class="signup-btn">SUBMIT</button>
+  </form>
+
+  {{/with}}
+
+</div>
